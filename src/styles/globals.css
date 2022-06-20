@@ -3,5 +3,11 @@
 @tailwind utilities;
 
 body {
-  @apply text-white bg-gray-800;
+  @apply text-white bg-gray-900;
+}
+
+#__next {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
