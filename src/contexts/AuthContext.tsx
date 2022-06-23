@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState, createContext } from 'react'
-import firebase from 'firebase/compat/app'
-import { auth, FirebaseUser } from '../firebase'
+import { auth, FirebaseUser, UserCredential } from '../firebase'
 
 interface DefaultStateTypes {
   currentUser: FirebaseUser | null,
-  signUp: (email: string, password: string) => Promise<firebase.auth.UserCredential>,
-  login: (email: string, password: string) => Promise<firebase.auth.UserCredential>,
+  signUp: (email: string, password: string) => Promise<UserCredential>,
+  login: (email: string, password: string) => Promise<UserCredential>,
   logout: () => Promise<void>,
   resetPassword: (email: string) => Promise<void>
 }

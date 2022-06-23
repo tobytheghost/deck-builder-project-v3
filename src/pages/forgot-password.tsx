@@ -6,7 +6,7 @@ import { useAuth } from '@/contexts/AuthContext'
 import AuthForm from '@/components/AuthForm'
 import AuthInput from '@/components/AuthInput'
 import AuthPage from '@/layouts/AuthPage'
-import AuthButton from '@/components/AuthButton'
+import AuthButton from '@/components/FormButton'
 import AuthError from '@/components/AuthError'
 
 const ForgotPassword: NextPage = () => {

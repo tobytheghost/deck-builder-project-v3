@@ -3,7 +3,7 @@ import { NextPage } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/contexts/AuthContext'
-import AuthButton from '@/components/AuthButton'
+import AuthButton from '@/components/FormButton'
 import AuthForm from '@/components/AuthForm'
 import AuthInput from '@/components/AuthInput'
 import AuthPage from '@/layouts/AuthPage'
@@ -19,8 +19,8 @@ const Login: NextPage = () => {
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
-    if (!emailRef.current) return
-    if (!passwordRef.current) return
+    if (!emailRef.current) return setError('Email not set')
+    if (!passwordRef.current) return setError('Password not set')
     try {
       setError('')
       setLoading(true)

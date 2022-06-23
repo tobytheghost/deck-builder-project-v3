@@ -7,9 +7,8 @@ const Home: NextPage = () => {
   return (
     <div className='flex-1 text-center flex flex-col align-middle justify-center'>
       <h1 className='text-3xl font-bold underline'>
-        Welcome to <a href='https://nextjs.org'>Next.js!</a>
+        Welcome to the Deck Builder Project
       </h1>
-      {currentUser && `UID: ${currentUser.uid}`}
     </div>
   )
 }
