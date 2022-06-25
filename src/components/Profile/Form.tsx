@@ -1,13 +1,13 @@
 import React from 'react'
 
-interface ProfilePageProps {
+interface ProfileFormProps {
   onSubmit: (e: React.SyntheticEvent) => any
   children: React.ReactNode
   message?: string
   messageType?: 'error' | 'warn' | 'info' | 'success'
 }
 
-const ProfilePage: React.FC<ProfilePageProps> = ({
+const ProfileForm: React.FC<ProfileFormProps> = ({
   onSubmit,
   message,
   messageType,
@@ -26,4 +26,4 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
   )
 }
 
-export default ProfilePage
+export default ProfileForm

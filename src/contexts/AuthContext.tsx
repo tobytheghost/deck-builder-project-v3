@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState, createContext } from 'react'
 import { auth, FirebaseUser, UserCredential } from '../firebase'
 
-interface DefaultStateTypes {
+interface AuthStateTypes {
   currentUser: FirebaseUser | null,
   signUp: (email: string, password: string) => Promise<UserCredential>,
   login: (email: string, password: string) => Promise<UserCredential>,
@@ -29,7 +29,7 @@ const resetPassword = (email: string) => {
   return auth.sendPasswordResetEmail(email)
 }
 
-const AuthContext = createContext<DefaultStateTypes>({
+const AuthContext = createContext<AuthStateTypes>({
   signUp,
   login,
   logout,

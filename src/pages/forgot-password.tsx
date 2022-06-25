@@ -3,11 +3,11 @@ import { NextPage } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/contexts/AuthContext'
-import AuthForm from '@/components/AuthForm'
-import AuthInput from '@/components/AuthInput'
+import AuthForm from '@/components/Auth/Form'
+import AuthInput from '@/components/Auth/Input'
 import AuthPage from '@/layouts/AuthPage'
-import AuthButton from '@/components/FormButton'
-import AuthError from '@/components/AuthError'
+import AuthButton from '@/components/Form/Button'
+import AuthError from '@/components/Auth/Error'
 
 const ForgotPassword: NextPage = () => {
   const emailRef = useRef<HTMLInputElement>(null)

@@ -1,4 +1,4 @@
-import Container from '@/components/Container'
+import Container from '@/components/Layout/Container'
 import React from 'react'
 
 interface AuthPageProps {

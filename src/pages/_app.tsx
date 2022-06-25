@@ -2,8 +2,8 @@ import 'tailwindcss/tailwind.css'
 import '../styles/globals.css'
 import { AppType } from 'next/dist/shared/lib/utils'
 import AuthProvider from '@/contexts/AuthContext'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
+import Header from '@/components/Layout/Header'
+import Footer from '@/components/Layout/Footer'
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
