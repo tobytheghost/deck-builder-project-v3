@@ -1,4 +1,4 @@
-import { DeckFirebaseTypes, DeckStateTypes } from "../contexts/DeckTypes"
+import { DeckFirebaseTypes, DeckStateTypes } from "@/contexts/DeckContext"
 import safeParseJson from "./safeParseJson"
 
 export function formatDeckFirebaseToState (deckState: DeckFirebaseTypes, id: string) {

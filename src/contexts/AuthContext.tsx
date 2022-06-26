@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState, createContext } from 'react'
 import { auth, FirebaseUser, UserCredential } from '../firebase'
+import nookies from 'nookies'
 
 interface AuthStateTypes {
-  currentUser: FirebaseUser | null,
-  signUp: (email: string, password: string) => Promise<UserCredential>,
-  login: (email: string, password: string) => Promise<UserCredential>,
-  logout: () => Promise<void>,
+  currentUser: FirebaseUser | null
+  signUp: (email: string, password: string) => Promise<UserCredential>
+  login: (email: string, password: string) => Promise<UserCredential>
+  logout: () => Promise<void>
   resetPassword: (email: string) => Promise<void>
 }
 
@@ -34,7 +35,7 @@ const AuthContext = createContext<AuthStateTypes>({
   login,
   logout,
   resetPassword,
-  currentUser: null,
+  currentUser: null
 })
 
 const AuthProvider = ({ children }: AuthProviderType) => {
@@ -42,11 +43,30 @@ const AuthProvider = ({ children }: AuthProviderType) => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const unsubscribeAuth = auth.onAuthStateChanged((user: FirebaseUser | null) => {
-      setCurrentUser(user)
-      setIsLoading(false)
-    })
+    const unsubscribeAuth = auth.onAuthStateChanged(
+      async (user: FirebaseUser | null) => {
+        if (!user) {
+          setCurrentUser(null)
+          setIsLoading(false)
+          nookies.set(undefined, 'token', '', { path: '/' })
+        } else {
+          const token = await user.getIdToken()
+          setCurrentUser(user)
+          setIsLoading(false)
+          nookies.set(undefined, 'token', token, { path: '/' })
+        }
+      }
+    )
     return () => unsubscribeAuth()
+  }, [])
+
+  // force refresh the token every 10 minutes
+  useEffect(() => {
+    const handle = setInterval(async () => {
+      const user = auth.currentUser
+      if (user) await user.getIdToken(true)
+    }, 10 * 60 * 1000)
+    return () => clearInterval(handle)
   }, [])
 
   const value = {
