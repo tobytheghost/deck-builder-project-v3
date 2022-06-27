@@ -4,9 +4,7 @@ import safeJsonStringify from 'safe-json-stringify'
 
 const getUser = async (uid: string | null) => {
   if (!uid) return null
-  const userByUid = await getUserByUid(uid)
-  if (!userByUid) return await getUserByUsername(uid)
-  return userByUid
+  return await getUserByUid(uid)
 }
 
 const getUserByUid = async (uid: string) => {
@@ -14,7 +12,9 @@ const getUserByUid = async (uid: string) => {
     const docRef = db.collection('users').doc(uid)
     const doc = await docRef.get()
     if (!doc.exists) return null
-    return JSON.parse(safeJsonStringify(doc.data() as object)) as UserStateType
+    return JSON.parse(
+      safeJsonStringify({ ...(doc.data() as object), user_id: doc.id })
+    ) as UserStateType
   } catch (error) {
     console.log(error)
     return null
@@ -30,7 +30,7 @@ export const getUserByUsername = async (uid: string) => {
     const snapshot = await docRef.get()
     const [user] = snapshot.docs.map(doc => {
       return JSON.parse(
-        safeJsonStringify(doc.data() as object)
+        safeJsonStringify({ ...(doc.data() as object), user_id: doc.id })
       ) as UserStateType
     })
     return user

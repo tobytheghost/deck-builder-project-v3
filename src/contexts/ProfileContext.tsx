@@ -11,8 +11,7 @@ export interface UserStateType {
 }
 
 export interface ProfileStateTypes {
-  loading: boolean
-  decks: DeckStateTypes[] | undefined[]
+  decks: DeckStateTypes[] | undefined
   user: UserStateType
 }
 

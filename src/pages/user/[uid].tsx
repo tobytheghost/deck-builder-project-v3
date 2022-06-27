@@ -5,11 +5,15 @@ import profileReducer, {
   initialProfileState
 } from '@/contexts/ProfileStateReducer'
 import getUser from '@/firebase/profile/getUser'
+import getDecks from '@/firebase/profile/getDecks'
+import DecksContent from '@/components/Decks/DecksContent'
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   try {
     const { uid } = ctx.query
-    const user = await getUser(uid ? (Array.isArray(uid) ? uid[0] : uid) : null)
+    const lookupKey = uid ? (Array.isArray(uid) ? uid[0] : uid) : null
+    const user = await getUser(lookupKey)
+    const decks = await getDecks(lookupKey)
 
     if (!user) {
       return {
@@ -18,7 +22,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
       }
     }
 
-    return { props: { uid, user } }
+    return { props: { uid, user, decks } }
   } catch (err) {
     return {
       props: {} as never,
@@ -30,11 +34,11 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 const PublicProfileContainer = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
-  const { user } = props
+  const { user, decks } = props
   return (
     <ProfileProvider
       reducer={profileReducer}
-      initialState={{ ...initialProfileState, user }}
+      initialState={{ ...initialProfileState, user, decks }}
     >
       <PublicProfile />
     </ProfileProvider>
@@ -43,14 +47,15 @@ const PublicProfileContainer = (
 
 const PublicProfile = () => {
   const [profileState] = useProfileContext()
-  const { user } = profileState
+  const { user, decks } = profileState
   const { display_name: displayName } = user
 
   return (
-    <Container className='py-8'>
+    <Container className='py-8 flex flex-col flex-wrap flex-1 !justify-start'>
       <h1 className='text-center text-3xl mb-4 w-full'>
         {displayName}&#39;s profile
       </h1>
+      {decks ? <DecksContent decks={decks} /> : null}
     </Container>
   )
 }

@@ -1,4 +1,4 @@
-import { useAuth } from '@/contexts/AuthContext'
+import { logout, useAuth } from '@/contexts/AuthContext'
 import HeaderNavLink from './HeaderNavLink'
 
 const HeaderNav = () => {
@@ -6,14 +6,9 @@ const HeaderNav = () => {
   return (
     <nav className='flex-1 flex flex-wrap align-middle justify-center'>
       <ul className='flex-1 flex align-middle justify-end'>
-        {currentUser ? (
-          <>
-            <HeaderNavLink href='/profile'>Profile</HeaderNavLink>
-            <HeaderNavLink href='/decks'>Decks</HeaderNavLink>
-          </>
-        ) : (
+        {!currentUser ? (
           <HeaderNavLink href='/login'>Login</HeaderNavLink>
-        )}
+        ) : null}
       </ul>
     </nav>
   )

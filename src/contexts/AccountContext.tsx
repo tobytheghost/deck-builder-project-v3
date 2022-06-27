@@ -5,14 +5,14 @@ import { Timestamp } from '../firebase'
 import { DeckStateTypes } from './DeckContext'
 
 export interface UserStateType {
-  display_name: string
-  user_id: string
-  user_since: Timestamp | null
+  display_name: string | undefined
+  user_id: string | undefined
+  user_since: Timestamp | undefined,
 }
 
 export interface AccountStateTypes {
-  loading: boolean
-  decks: DeckStateTypes[] | undefined[]
+  loaded: boolean
+  decks: DeckStateTypes[] | undefined
   user: UserStateType
 }
 

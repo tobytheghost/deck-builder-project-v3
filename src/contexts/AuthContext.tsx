@@ -22,7 +22,7 @@ const login = (email: string, password: string) => {
   return auth.signInWithEmailAndPassword(email, password)
 }
 
-const logout = () => {
+export const logout = () => {
   return auth.signOut()
 }
 

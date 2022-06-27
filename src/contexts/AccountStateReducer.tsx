@@ -5,20 +5,19 @@ import {
 } from './AccountContext'
 
 export const initialUserState: UserStateType = {
-  display_name: '',
-  user_id: '',
-  user_since: null
+  display_name: undefined,
+  user_id: undefined,
+  user_since: undefined
 }
 
 export const initialAccountState: AccountStateTypes = {
-  loading: true,
+  loaded: false,
   decks: [],
   user: initialUserState
 }
 
 export const AccountStateActions = {
-  SET_LOADING: 'SET_LOADING',
-  SET_Account: 'SET_Account',
+  SET_PROFILE: 'SET_PROFILE',
   SET_DECKS: 'SET_DECKS',
   SET_USER: 'SET_USER'
 }
@@ -28,28 +27,23 @@ const accountReducer = (
   action: AccountActionTypes
 ) => {
   switch (action.type) {
-    case AccountStateActions.SET_LOADING:
-      return {
-        ...state,
-        loading: action.payload.loading
-      }
-    case AccountStateActions.SET_Account:
+    case AccountStateActions.SET_PROFILE:
       return {
         ...state,
         ...action.payload,
-        loading: false
+        loaded: true
       }
     case AccountStateActions.SET_DECKS:
       return {
         ...state,
         decks: action.payload.decks,
-        loading: false
+        loaded: true
       }
     case AccountStateActions.SET_USER:
       return {
         ...state,
         user: action.payload.user,
-        loading: false
+        loaded: true
       }
     default:
       return state

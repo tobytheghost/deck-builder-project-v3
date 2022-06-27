@@ -11,7 +11,6 @@ export const initialUserState: UserStateType = {
 }
 
 export const initialProfileState: ProfileStateTypes = {
-  loading: true,
   decks: [],
   user: initialUserState
 }
